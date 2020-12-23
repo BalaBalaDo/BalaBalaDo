@@ -1,0 +1,71 @@
+
+#include <stdio.h>
+
+  struct ListNode {
+      int val;
+      struct ListNode *next;
+  }Node;
+
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2){
+
+    struct ListNode temp;
+    temp.val = 0; temp.next = NULL;
+    struct ListNode* curr = &temp;
+    int remainder = 0, sum;
+    while (l1 != NULL || l2 != NULL || remainder != 0) {
+        sum = remainder + (l1 == 0 ? 0 : l1->val) + (l2 == 0 ? 0: l2->val);
+        remainder = sum/10;
+        sum %= 10;
+        curr->next = malloc(sizeof(struct ListNode));
+        curr->next->next = NULL;
+        curr->next->val = sum;
+        curr = curr->next;
+        l1 = (l1 == 0 ? 0 : l1->next);
+        l2 = (l2 == 0 ? 0 : l2->next);
+    }
+    return temp.next;
+}
+int main()
+{
+    
+	// create first node "head"
+	struct ListNode *head = malloc(sizeof(struct ListNode));//(Node*)malloc(sizeof(Node));
+	// assign data to 5
+	head->val = 2;
+	// head not point to next node temporarily
+	head->next = NULL;
+	// declare 2nd node
+	struct ListNode *node2 = malloc(sizeof(struct ListNode));//(Node*)malloc(sizeof(Node));
+	// assign data to 128
+	node2->val = 4;
+	// make first node point to the node2
+	head->next = node2;
+	// node2 not point to next node temporarily
+	node2->next = NULL;
+	// declare 3rd node
+	struct ListNode *node3 = malloc(sizeof(struct ListNode));;//(Node*)malloc(sizeof(Node));
+	// assign data to 128
+	node3->val = 3;
+	// make node2 point to the node2
+	node2->next = node3;
+	// node3 not point to next node temporarily
+	node3->next = NULL;
+
+	// declare a node named as current
+	struct ListNode *current = malloc(sizeof(struct ListNode));;//(Node*)malloc(sizeof(Node));
+	// make the current equal to head node
+	current = head;
+	// if the current node is NULL, leave the loop
+	while(current != NULL) {
+		// print the current node data
+		printf("%d ", current->val);
+		// make current node to the next node
+		current = current->next;
+	}
+
+    return 0;
+}
+
+/* result
+708
+*/
